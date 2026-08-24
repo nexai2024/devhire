@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevHire</title>
+    <script>window.__BACKEND_URL__ = '/api/companies/DevHire/app';</script>
+    <script>window.__COMPANY_SLUG__ = 'DevHire';</script>
+    <script>window.__NC_BASE__ = 'https://astarlabshub.com';</script>
+    <script>
+      // 1) Stop browser-extension errors (session recorders, ad blockers, etc.) from
+      //    surfacing as uncaught page errors — they are not part of this app.
+      // 2) Report REAL app errors to the platform (auto-queues a coder fix task) —
+      //    this used to exist only in the CDN fallback, so Vite builds (the normal
+      //    case) never self-healed from real-user runtime errors.
+      // 3) Send one pageview beacon per load so the company dashboard shows real traffic.
+      (function () {
+        function foreign(s) {
+          s = s || '';
+          if (/(?:chrome|moz|safari|ms-browser|edge)-extension:\/\//.test(s)) return true;
+          if (/recordConsoleEvents|gen-mapping/.test(s) && s.indexOf(location.origin) === -1) return true;
+          return false;
+        }
+        var NC = window.__NC_BASE__ || '';
+        var SLUG = window.__COMPANY_SLUG__ || '';
+        var _lastErr = '';
+        function beacon(path, payload) {
+          try {
+            if (!SLUG || !navigator.sendBeacon) return;
+            navigator.sendBeacon(NC + path,
+              new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+          } catch (e) {}
+        }
+        function reportErr(msg, stack) {
+          var text = String(stack || msg || '').slice(0, 800);
+          if (!text || text === _lastErr) return;   // one report per distinct error
+          _lastErr = text;
+          beacon('/api/sites/' + SLUG + '/report-error', { error: text, url: location.href });
+        }
+        window.addEventListener('error', function (e) {
+          var src = (e && e.filename) || '';
+          var stack = e && e.error && e.error.stack || '';
+          if (foreign(src) || foreign(stack)) { e.stopImmediatePropagation(); e.preventDefault(); return false; }
+          reportErr(e && e.message, stack);
+        }, true);
+        window.addEventListener('unhandledrejection', function (e) {
+          var stack = e && e.reason && (e.reason.stack || String(e.reason)) || '';
+          if (foreign(stack)) { e.stopImmediatePropagation(); e.preventDefault(); return; }
+          reportErr('Unhandled rejection', stack);
+        }, true);
+        // Pageview beacon (fire-and-forget, once per page load)
+        beacon('/api/sites/' + SLUG + '/pv', { p: location.pathname, r: document.referrer || '' });
+        // "Built with Agentica" badge — every deployed company is a live referral
+        // for the platform (PLG loop). Injected by the platform shell so app code
+        // can never accidentally remove it.
+        function addBadge() {
+          try {
+            if (!NC || document.getElementById('nc-badge')) return;
+            var a = document.createElement('a');
+            a.id = 'nc-badge';
+            a.href = NC + '/?ref=' + encodeURIComponent(SLUG) + '&utm_source=built_with_badge';
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.textContent = '⚡ Built with Agentica';
+            a.style.cssText = 'position:fixed;bottom:14px;left:14px;z-index:2147483000;' +
+              'font:600 11px/1 system-ui,sans-serif;color:#9aa6bd;text-decoration:none;' +
+              'background:rgba(5,8,16,.82);border:1px solid rgba(255,255,255,.14);' +
+              'padding:7px 11px;border-radius:999px;backdrop-filter:blur(6px);' +
+              'box-shadow:0 2px 12px rgba(0,0,0,.35);opacity:.85;transition:opacity .2s';
+            a.onmouseenter = function () { a.style.opacity = '1'; };
+            a.onmouseleave = function () { a.style.opacity = '.85'; };
+            document.body.appendChild(a);
+          } catch (e) {}
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', addBadge);
+        } else { addBadge(); }
+      })();
+    </script>
+    <!-- Pinned to a known-good v3 build: the unversioned URL redirects to
+         whatever Tailwind currently ships as "latest" behind that path, which
+         has silently changed before and breaks class generation with no
+         visible error — the page just ships completely unstyled. -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#0F4C81',
+              accent: '#F5A623',
+            }
+          }
+        }
+      }
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #F4F7F6; color: #0f172a; font-family: 'DM Sans', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.20); border-radius: 3px; }
+      }
+    </style>
+  
+  <style>
+    /* Brand override: map generic SaaS colors to this company's palette */
+    .bg-purple-50,.bg-purple-100,.bg-purple-200,.bg-purple-300,.bg-purple-400,
+    .bg-purple-500,.bg-purple-600,.bg-purple-700,.bg-purple-800,.bg-purple-900,
+    .bg-indigo-50,.bg-indigo-100,.bg-indigo-200,.bg-indigo-300,.bg-indigo-400,
+    .bg-indigo-500,.bg-indigo-600,.bg-indigo-700,.bg-indigo-800,.bg-indigo-900,
+    .bg-violet-50,.bg-violet-100,.bg-violet-200,.bg-violet-300,.bg-violet-400,
+    .bg-violet-500,.bg-violet-600,.bg-violet-700,.bg-violet-800,.bg-violet-900 {
+      background-color: #0F4C81 !important;
+    }
+    .text-purple-400,.text-purple-500,.text-purple-600,.text-purple-700,
+    .text-indigo-400,.text-indigo-500,.text-indigo-600,.text-indigo-700,
+    .text-violet-400,.text-violet-500,.text-violet-600,.text-violet-700 {
+      color: #0F4C81 !important;
+    }
+    .border-purple-500,.border-purple-600,.border-indigo-500,.border-indigo-600,
+    .border-violet-500,.border-violet-600 {
+      border-color: #0F4C81 !important;
+    }
+    .from-purple-600,.from-purple-700,.from-indigo-600,.from-indigo-700,
+    .from-violet-600,.from-violet-700 {
+      --tw-gradient-from: #0F4C81 !important;
+    }
+    .to-purple-600,.to-purple-700,.to-indigo-600,.to-indigo-700,
+    .to-violet-600,.to-violet-700 {
+      --tw-gradient-to: #0F4C81 !important;
+    }
+    .bg-cyan-400,.bg-cyan-500,.bg-teal-400,.bg-teal-500 {
+      background-color: #F5A623 !important;
+    }
+    .text-cyan-400,.text-cyan-500,.text-teal-400,.text-teal-500 {
+      color: #F5A623 !important;
+    }
+  </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
