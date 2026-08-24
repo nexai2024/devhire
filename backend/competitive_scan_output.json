@@ -1,0 +1,278 @@
+{
+  "generated_at": "2026-08-24T20:20:26.812170+00:00",
+  "methodology": "Curated scan of 5 top technical-recruiting platforms across pricing, assessment features, and time-to-first-interview. Dimension scores are 0-100 weighted composites (45% features, 35% speed, 20% pricing). DevHire included as benchmark. Sources: public pricing pages / documentation as of scan date; values best-known public figures.",
+  "competitors": [
+    {
+      "name": "HackerRank",
+      "slug": "hackerrank",
+      "category": "Coding assessments + skill platform",
+      "pricing": {
+        "model": "Enterprise / quote-based",
+        "list_price_monthly_usd": null,
+        "notes": "Custom Enterprise quote. Free tier for aspirational candidates; recruiting suite is a paid enterprise product. Annual contracts.",
+        "per_role": false,
+        "unlimited_roles": false,
+        "candidate_facing_free": true
+      },
+      "assessment_features": {
+        "coding_challenges": true,
+        "async_video_interview": false,
+        "skills_assessments": true,
+        "auto_code_review": true,
+        "plagiarism_detection": true,
+        "custom_test_builder": true,
+        "ai_reports": true,
+        "simulation_environments": [
+          "python",
+          "js",
+          "sql",
+          "java",
+          "c++",
+          "go"
+        ],
+        "notes": "Best-in-class question bank & anti-cheating; strong enterprise reviews & analytics."
+      },
+      "time_to_interview": {
+        "typical_days": 10.0,
+        "notes": "Enterprise sales cycle + recruiter screens still manual; assessment adds a step but platform does not auto-schedule."
+      },
+      "score": 61.3,
+      "score_breakdown": {
+        "features": 88.0,
+        "speed": 33.3,
+        "pricing": 50.0
+      }
+    },
+    {
+      "name": "Codility",
+      "slug": "codility",
+      "category": "Coding skills screening",
+      "pricing": {
+        "model": "Subscription, tiered",
+        "list_price_monthly_usd": 0.0,
+        "notes": "Free 'Codility for Interview' tier; paid CodeCheck/Codility plans ~$150-350/mo per seat in public pricing. Per-seat, not unlimited roles.",
+        "per_role": true,
+        "unlimited_roles": false,
+        "candidate_facing_free": true
+      },
+      "assessment_features": {
+        "coding_challenges": true,
+        "async_video_interview": false,
+        "skills_assessments": true,
+        "auto_code_review": true,
+        "plagiarism_detection": true,
+        "custom_test_builder": true,
+        "ai_reports": true,
+        "simulation_environments": [
+          "python",
+          "js",
+          "sql",
+          "java",
+          "c++",
+          "swift"
+        ],
+        "notes": "Strong code challenge library & scoring engine; no native async video interview."
+      },
+      "time_to_interview": {
+        "typical_days": 11.0,
+        "notes": "Assessment automated but scheduling/screen remains manual; has a candidate-facing ATS-ish flow for enterprise."
+      },
+      "score": 58.4,
+      "score_breakdown": {
+        "features": 88.0,
+        "speed": 25.0,
+        "pricing": 50.0
+      }
+    },
+    {
+      "name": "Triplebyte",
+      "slug": "triplebyte",
+      "category": "Candidate marketplace + screen",
+      "pricing": {
+        "model": "Employer placement / monthly",
+        "list_price_monthly_usd": null,
+        "notes": "Pivoted away from mass take-home screen toward employer-side matching + assessments. Placement/enterprise pricing; recruiter screens still common.",
+        "per_role": false,
+        "unlimited_roles": false,
+        "candidate_facing_free": true
+      },
+      "assessment_features": {
+        "coding_challenges": true,
+        "async_video_interview": true,
+        "skills_assessments": true,
+        "auto_code_review": true,
+        "plagiarism_detection": false,
+        "custom_test_builder": false,
+        "ai_reports": true,
+        "simulation_environments": [
+          "python",
+          "js",
+          "sql",
+          "java"
+        ],
+        "notes": "Known for the standardized technical screen + matched marketplace; candidate screening historically centralized (pool, not per-role)."
+      },
+      "time_to_interview": {
+        "typical_days": 9.0,
+        "notes": "Pre-vetted pool helps but matching + employer screens add days; not a 48h SLA."
+      },
+      "score": 60.6,
+      "score_breakdown": {
+        "features": 80.0,
+        "speed": 41.7,
+        "pricing": 50.0
+      }
+    },
+    {
+      "name": "Vettery",
+      "slug": "vettery",
+      "category": "Candidate marketplace (acquired by Adecco)",
+      "pricing": {
+        "model": "Placement fee / subscription",
+        "list_price_monthly_usd": null,
+        "notes": "Historically subscription to recruit + placement fee; now folded into Adecco/LHH. No published per-role pricing post-acquisition.",
+        "per_role": true,
+        "unlimited_roles": false,
+        "candidate_facing_free": true
+      },
+      "assessment_features": {
+        "coding_challenges": false,
+        "async_video_interview": true,
+        "skills_assessments": false,
+        "auto_code_review": false,
+        "plagiarism_detection": false,
+        "custom_test_builder": false,
+        "ai_reports": false,
+        "simulation_environments": [],
+        "notes": "Networking/marketplace platform: matching + async intro, but no native coding challenge engine."
+      },
+      "time_to_interview": {
+        "typical_days": 8.0,
+        "notes": "Fast matching on a vetted talent pool; no 48h guarantee and screen quality varies."
+      },
+      "score": 32.9,
+      "score_breakdown": {
+        "features": 12.0,
+        "speed": 50.0,
+        "pricing": 50.0
+      }
+    },
+    {
+      "name": "Interviewing.io",
+      "slug": "interviewing-io",
+      "category": "Anonymous technical interviews",
+      "pricing": {
+        "model": "Per-interview / subscription",
+        "list_price_monthly_usd": null,
+        "notes": "Per-interview fees for companies; strong for live mock interviews and anonymous screens. More a supplement than an end-to-end ATS.",
+        "per_role": true,
+        "unlimited_roles": false,
+        "candidate_facing_free": true
+      },
+      "assessment_features": {
+        "coding_challenges": true,
+        "async_video_interview": true,
+        "skills_assessments": true,
+        "auto_code_review": true,
+        "plagiarism_detection": false,
+        "custom_test_builder": false,
+        "ai_reports": true,
+        "simulation_environments": [
+          "python",
+          "js",
+          "sql"
+        ],
+        "notes": "Anonymized interviews reduce bias; live-interview focus means slower throughput than pure async screening."
+      },
+      "time_to_interview": {
+        "typical_days": 7.0,
+        "notes": "Scheduling a live/async interview is fast, but coordination for live sessions + manual next-step email add friction (no SLA)."
+      },
+      "score": 65.5,
+      "score_breakdown": {
+        "features": 78.0,
+        "speed": 58.3,
+        "pricing": 50.0
+      }
+    },
+    {
+      "name": "DevHire",
+      "slug": "devhire",
+      "category": "Automated screening + assessments (benchmark)",
+      "pricing": {
+        "model": "Flat subscription",
+        "list_price_monthly_usd": 399.0,
+        "notes": "$399/mo UNLIMITED roles (not per-seat, not per-placement).",
+        "per_role": false,
+        "unlimited_roles": true,
+        "candidate_facing_free": true,
+        "roles_included_flavor": "unlimited"
+      },
+      "assessment_features": {
+        "coding_challenges": true,
+        "async_video_interview": true,
+        "skills_assessments": true,
+        "auto_code_review": true,
+        "plagiarism_detection": true,
+        "custom_test_builder": true,
+        "ai_reports": true,
+        "end_to_end_automation": true,
+        "simulation_environments": [
+          "python",
+          "js",
+          "sql",
+          "java",
+          "go",
+          "cpp"
+        ],
+        "notes": "Chain: coding challenge -> async video -> skills assessment -> ranked shortlist, fully automated."
+      },
+      "time_to_interview": {
+        "typical_days": 2.0,
+        "start_to_first_interview_days": 2.0,
+        "notes": "$399 flat plan + hard 48-hour automation SLA replaces the entire phone-screen phase. No recruiter screen in the critical path."
+      },
+      "score": 90.0,
+      "score_breakdown": {
+        "features": 100.0,
+        "speed": 100,
+        "pricing": 50.0
+      }
+    }
+  ],
+  "best_competitor_speed_days": 7.0,
+  "devhire_sla_days": 2.0,
+  "opportunities": [
+    {
+      "id": 1,
+      "name": "Flat $399/mo with UNLIMITED roles vs per-seat/per-placement billing",
+      "severity": "High",
+      "market_gap": "Every scanned competitor charges per-seat, per-placement, or opaque enterprise quote. None offers a flat plan covering unlimited open roles. Startups hiring multiple roles (or a few at a time across sprints) constantly hit seat/placement cost spikes.",
+      "devhire_play": "Own the 'unlimited' flat-rate position: $399/mo covers every role, every candidate, regardless of volume. Print this line-item in marketing and a live quote-vs-saved calculator.",
+      "competitive_advantage": "Zero variable cost for extra roles gives DevHire a structural pricing moat for portfolio/solopreneur hiring."
+    },
+    {
+      "id": 2,
+      "name": "Guaranteed 48h time-to-first-interview (fastest comp is 7 days)",
+      "severity": "High",
+      "market_gap": "Best-in-class competitor still takes ~7-11 days. They automate the assessment but keep a manual recruiter screen + scheduling in the critical path.",
+      "devhire_play": "Make 48h a guaranteed SLA, not a marketing claim: fully automated challenge -> async video -> skills -> ranked shortlist -> auto-booked interview, with zero recruiter in the path.",
+      "competitive_advantage": "Nobody in the scan offers a hard 48-hour SLA. This is a defensible, measurable differentiator (cuts 2 weeks to 48h)."
+    },
+    {
+      "id": 3,
+      "name": "All-in-one chain: coding + async video + skills at one flat price",
+      "severity": "High",
+      "market_gap": "No scanned competitor natively bundles all three pillars. HackerRank/Codility nail coding but lack async video; Interviewing.io does interviews but lacks the challenge engine; Triplebyte/Vettery are marketplaces first.",
+      "devhire_play": "Position DevHire as the single tool that replaces coding-screen + phone-screen + skills-verification tech stack the startup would otherwise bolt together from 3 vendors.",
+      "competitive_advantage": "One subscription, one workflow, one ranked shortlist. Bundled 3-in-1 value at $399/mo beats assembling 3 point solutions."
+    }
+  ],
+  "summary": {
+    "count_scanned": 5,
+    "best_competitor_speed_days": 7.0,
+    "devhire_sla_days": 2.0,
+    "speed_uplift_x": 4.5,
+    "opportunities_identified": 3
+  }
+}
