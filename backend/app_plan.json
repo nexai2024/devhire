@@ -1,0 +1,137 @@
+{
+  "app_type": "saas_dashboard",
+  "app_name": "DevHire",
+  "brand_name": "DevHire",
+  "tagline": "Cut time-to-first-interview from 2 weeks to 48 hours with automated coding challenges, async video interviews, and skills assessments.",
+  "primary_color": "#0F4C81",
+  "accent_color": "#F5A623",
+  "secondary_color": "#F4F7F6",
+  "font_heading": "Space Grotesk",
+  "font_body": "DM Sans",
+  "voice_tone": "modern, efficient, trustworthy, developer-focused",
+  "logo_concept": "A stylized bolt integrated into a briefcase icon, representing speed and professionalism.",
+  "brand_values": [
+    "Speed",
+    "Efficiency",
+    "Transparency"
+  ],
+  "sections": [
+    "Hero",
+    "How it works",
+    "Features",
+    "Pricing",
+    "Testimonials",
+    "CTA"
+  ],
+  "backend_resources": [
+    "roles",
+    "candidates",
+    "challenges",
+    "interviews",
+    "assessments",
+    "pipeline",
+    "metrics"
+  ],
+  "features": [
+    "Automated coding challenges",
+    "Async video interviews",
+    "Skills assessments",
+    "Unlimited roles"
+  ],
+  "pricing_tiers": [
+    "Pro: $399/mo — Unlimited roles, automated coding challenges, async video interviews, skills assessments, and pipeline management."
+  ],
+  "target_customer": "Solopreneurs and startups",
+  "key_metric": "Time-to-first-interview reduced from 2 weeks to 48 hours",
+  "hero_stats": [
+    {
+      "value": "48 hours",
+      "label": "Time to first interview"
+    },
+    {
+      "value": "2 weeks",
+      "label": "Traditional time to first interview"
+    },
+    {
+      "value": "100%",
+      "label": "Automated screening"
+    }
+  ],
+  "api_contract": [
+    {
+      "method": "GET",
+      "path": "/api/metrics",
+      "response": "[{time_to_interview_hours, candidates_screened, roles_active}]",
+      "description": "Returns key metrics for dashboard"
+    },
+    {
+      "method": "GET",
+      "path": "/api/roles",
+      "response": "[{id, title, status, created_at}]",
+      "description": "Lists all roles"
+    },
+    {
+      "method": "POST",
+      "path": "/api/roles",
+      "response": "{id, title, status, created_at}",
+      "description": "Creates a new role"
+    },
+    {
+      "method": "GET",
+      "path": "/api/candidates",
+      "response": "[{id, name, email, role_id, status}]",
+      "description": "Lists candidates for a role"
+    },
+    {
+      "method": "POST",
+      "path": "/api/challenges",
+      "response": "{id, role_id, title, description, difficulty}",
+      "description": "Creates a coding challenge"
+    },
+    {
+      "method": "POST",
+      "path": "/api/interviews",
+      "response": "{id, candidate_id, video_url, submitted_at}",
+      "description": "Submits an async video interview"
+    },
+    {
+      "method": "GET",
+      "path": "/api/assessments",
+      "response": "[{id, candidate_id, score, type}]",
+      "description": "Returns skills assessment results"
+    },
+    {
+      "method": "POST",
+      "path": "/api/pipeline",
+      "response": "{id, role_id, candidate_id, stage, updated_at}",
+      "description": "Updates candidate pipeline stage"
+    }
+  ],
+  "roadmap": [
+    {
+      "id": "m1",
+      "title": "Core dashboard with roles and metrics endpoint",
+      "status": "pending"
+    },
+    {
+      "id": "m2",
+      "title": "Automated coding challenges module",
+      "status": "pending"
+    },
+    {
+      "id": "m3",
+      "title": "Async video interviews and skills assessments",
+      "status": "pending"
+    },
+    {
+      "id": "m4",
+      "title": "Pipeline management and candidate tracking",
+      "status": "pending"
+    },
+    {
+      "id": "m5",
+      "title": "Unlimited roles and billing integration",
+      "status": "pending"
+    }
+  ]
+}
