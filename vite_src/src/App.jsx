@@ -162,12 +162,17 @@ function ProductApp({ user, token, onLogout }) {
   const [sortField, setSortField] = useState('created_at');
   const [sortDir, setSortDir] = useState('desc');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [loading, setLoading] = useState({ metrics: true, roles: true, candidates: true, assessments: true });
+  const [dataOk, setDataOk] = useState(true);
 
   useEffect(() => {
-    apiFetch('/api/metrics').then(d => setMetrics(Array.isArray(d) ? d[0] || {} : d || {}));
-    apiFetch('/api/roles').then(d => setRoles(Array.isArray(d) ? d : (d?.roles || d?.items || [])));
-    apiFetch('/api/candidates').then(d => setCandidates(Array.isArray(d) ? d : (d?.items || [])));
-    apiFetch('/api/assessments').then(d => setAssessments(Array.isArray(d) ? d : (d?.items || [])));
+    let mounted = true;
+    const done = (key) => { if (mounted) setLoading(p => ({ ...p, [key]: false })); };
+    apiFetch('/api/metrics').then(d => { if (mounted) { setMetrics(Array.isArray(d) ? d[0] || {} : d || {}); if (!d) setDataOk(false); else setDataOk(true); done('metrics'); } });
+    apiFetch('/api/roles').then(d => { if (mounted) { const b = Array.isArray(d) ? d : (d && (d.roles || d.items)); setRoles(Array.isArray(b) ? b : []); done('roles'); } });
+    apiFetch('/api/candidates').then(d => { if (mounted) { const b = Array.isArray(d) ? d : (d && d.items); setCandidates(Array.isArray(b) ? b : []); done('candidates'); } });
+    apiFetch('/api/assessments').then(d => { if (mounted) { const b = Array.isArray(d) ? d : (d && d.items); setAssessments(Array.isArray(b) ? b : []); done('assessments'); } });
+    return () => { mounted = false; };
   }, []);
 
   const showToast = useCallback((msg) => {
@@ -287,18 +292,32 @@ function ProductApp({ user, token, onLogout }) {
 
             {activeSection === 'dashboard' && (
               <>
+                {(loading.metrics || loading.roles || loading.candidates || loading.assessments) && (
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', background: '#e8f0fe', color: '#0F4C81', borderRadius: 8, padding: '12px 16px', marginBottom: 20, fontSize: 14 }}>
+                    <span style={{
+                      display: 'inline-block', width: 13, height: 13, borderRadius: '50%',
+                      background: 'radial-gradient(circle at 35% 35%, #F5A623, #b97710)', marginRight: 6
+                    }} />
+                    <span>Syncing live hiring data&hellip;</span>
+                  </div>
+                )}
+                {!dataOk && (
+                  <div style={{ background: '#fdecea', color: '#b3261e', borderRadius: 8, padding: '12px 16px', marginBottom: 20, fontSize: 14 }}>
+                    <span>We couldn&rsquo;t reach the metrics service. Showing your locally active data &mdash; retrying automatically.</span>
+                  </div>
+                )}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20, marginBottom: 30 }}>
                   <div style={styles.card}>
                     <div style={{ fontSize: 13, color: '#4a5a6a' }}>Active Roles</div>
-                    <div style={{ fontSize: 36, fontWeight: 700, color: '#0F4C81', fontFamily: "'Space Grotesk', sans-serif" }}>{metrics?.roles_active || (roles || []).length || 0}</div>
+                    <div style={{ fontSize: 36, fontWeight: 700, color: '#0F4C81', fontFamily: "'Space Grotesk', sans-serif" }}>{loading.roles ? '…' : (metrics?.roles_active || (roles || []).length || 0)}</div>
                   </div>
                   <div style={{ ...styles.card, background: '#0F4C81', color: 'white', border: 'none' }}>
                     <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>Candidates Screened</div>
-                    <div style={{ fontSize: 36, fontWeight: 700, color: '#F5A623', fontFamily: "'Space Grotesk', sans-serif" }}>{metrics?.candidates_screened || (candidates || []).length || 0}</div>
+                    <div style={{ fontSize: 36, fontWeight: 700, color: '#F5A623', fontFamily: "'Space Grotesk', sans-serif" }}>{loading.candidates ? '…' : (metrics?.candidates_screened || (candidates || []).length || 0)}</div>
                   </div>
                   <div style={styles.card}>
                     <div style={{ fontSize: 13, color: '#4a5a6a' }}>Time to Interview</div>
-                    <div style={{ fontSize: 36, fontWeight: 700, color: '#0F4C81', fontFamily: "'Space Grotesk', sans-serif" }}>{metrics?.time_to_interview_hours || 48}h</div>
+                    <div style={{ fontSize: 36, fontWeight: 700, color: '#0F4C81', fontFamily: "'Space Grotesk', sans-serif" }}>{loading.metrics ? '…' : (metrics?.time_to_interview_hours || 48) + 'h'}</div>
                   </div>
                   <div style={styles.card}>
                     <div style={{ fontSize: 13, color: '#4a5a6a' }}>Avg. Assessment Score</div>
@@ -314,7 +333,12 @@ function ProductApp({ user, token, onLogout }) {
                       <span style={{ fontSize: 18, fontWeight: 600 }}>Active Roles</span>
                       <button style={styles.btnSecondary} onClick={() => setActiveSection('roles')}>View All</button>
                     </div>
-                    {(roles || []).length === 0 ? (
+                    {loading.roles ? (
+                      <div style={{ textAlign: 'center', padding: '40px 20px', color: '#4a5a6a' }}>
+                        <div style={{ fontSize: 42, marginBottom: 12 }}>💼</div>
+                        Loading roles&hellip;
+                      </div>
+                    ) : (roles || []).length === 0 ? (
                       <div style={{ textAlign: 'center', padding: '40px 20px', color: '#4a5a6a' }}>
                         <div style={{ fontSize: 42, marginBottom: 12 }}>💼</div>
                         No roles yet. <span style={{ color: '#0F4C81', cursor: 'pointer', fontWeight: 600 }} onClick={() => setActiveSection('roles')}>Create your first role</span>
@@ -349,7 +373,12 @@ function ProductApp({ user, token, onLogout }) {
 
                   <div style={styles.card}>
                     <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 20 }}>Assessment Overview</div>
-                    {(assessments || []).length === 0 ? (
+                    {loading.assessments ? (
+                      <div style={{ textAlign: 'center', color: '#4a5a6a' }}>
+                        <div style={{ fontSize: 42, marginBottom: 12 }}>📊</div>
+                        Loading assessments&hellip;
+                      </div>
+                    ) : (assessments || []).length === 0 ? (
                       <div style={{ textAlign: 'center', color: '#4a5a6a' }}>
                         <div style={{ fontSize: 42, marginBottom: 12 }}>📊</div>
                         No assessments yet
@@ -398,7 +427,12 @@ function ProductApp({ user, token, onLogout }) {
                     <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 20, color: '#0F4C81', fontFamily: "'Space Grotesk', sans-serif" }}>
                       All Roles
                     </div>
-                    {(roles || []).length === 0 ? (
+                    {loading.roles ? (
+                      <div style={{ textAlign: 'center', color: '#4a5a6a' }}>
+                        <div style={{ fontSize: 42, marginBottom: 12 }}>📋</div>
+                        Loading roles&hellip;
+                      </div>
+                    ) : (roles || []).length === 0 ? (
                       <div style={{ textAlign: 'center', color: '#4a5a6a' }}>
                         <div style={{ fontSize: 42, marginBottom: 12 }}>📋</div>
                         No roles yet. Create your first one!
@@ -427,7 +461,12 @@ function ProductApp({ user, token, onLogout }) {
                   <Filter size={18} style={{ verticalAlign: 'middle', marginRight: 8 }} color="#F5A623" />
                   Candidate Pipeline
                 </div>
-                {(candidates || []).length === 0 ? (
+                {loading.candidates ? (
+                  <div style={{ textAlign: 'center', color: '#4a5a6a', padding: '40px 20px' }}>
+                    <div style={{ fontSize: 42, marginBottom: 12 }}>🔍</div>
+                    Loading candidates&hellip;
+                  </div>
+                ) : (candidates || []).length === 0 ? (
                   <div style={{ textAlign: 'center', color: '#4a5a6a', padding: '40px 20px' }}>
                     <div style={{ fontSize: 42, marginBottom: 12 }}>🔍</div>
                     No candidates yet. Once you create roles and run challenges, candidates will appear here.
@@ -542,3 +581,5 @@ function App() {
 }
 
 export default App;
+
+// end of DevHire dashboard module
